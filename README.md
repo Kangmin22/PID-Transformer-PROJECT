@@ -1,8 +1,9 @@
+# PID-Transformer 🧭🧠
+
 # PID-Transformer: A Control-Theoretic Approach for Stabilizing Large-Scale Neural Networks
+
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/release/python-390/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-# PID-Transformer 🧭🧠  
 
 # Control-Theoretic Stabilization for Large-Scale Transformers
 
@@ -25,15 +26,23 @@ pip install pidtransformer-1.0.0-py3-none-any.whl
 # or
 pip install pidtransformer-1.0.0.tar.gz
 
+---
+
 🚀 Quick Start
 
 1. Clone and prepare the environment
 
-git clone https://github.com/your-org/pid-transformer.git
-cd pid-transformer
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+- git clone https://github.com/your-org/pid-transformer.git
+
+- cd pid-transformer
+
+- python3 -m venv venv
+
+- source venv/bin/activate
+
+- pip install -r requirements.txt
+
+---
 
 2. Run a training experiment
 
@@ -42,11 +51,15 @@ python experiments/train_baseline.py \
     --kp 0.002852 --ki 0.001240 --kd 0.012805 \
     --d_filter 3
 
+---
+
 3. Visualize hidden state trajectories
 
 python experiments/plot_trajectory.py \
     PID_Off_history.json PID_Optimal_Filtered_history.json \
     --output_file trajectory_comparison.png
+
+---
 
 🧠 Core Components
 
@@ -57,6 +70,8 @@ python experiments/plot_trajectory.py \
 | `AdaptiveDim`            | Dynamically switches dimensionality (e.g. 256→128) to optimize stability over time. |
 | `Group-wise PID`         | PID applied across subgroups of hidden dimensions.                                  |
 | `Trajectory Tracker`     | Captures hidden state evolution to visualize smoothness/curvature via PCA.          |
+
+---
 
 📊 Interactive Visualization
 
@@ -74,6 +89,8 @@ GSA bar chart 📊
 
 Diagrammatic explanation of PIDLayer and controller design 🧩
 
+---
+
 🧪 Reproducible Experiments
 
 # Baseline Model (no control)
@@ -87,6 +104,7 @@ python experiments/train_baseline.py --experiment_name "AdaptiveDim" \
 python experiments/train_baseline.py --experiment_name "Endurance_AdaptiveDim" \
     --num_steps 5000 --log_freq 50 --use_adaptive_dim --use_group_pid
 
+---
 
 📚 Citation
 If you use this work in your research, please cite:
