@@ -5,7 +5,7 @@ This repository contains the official implementation for PID-Transformer, a nove
 
 For a comprehensive overview and interactive visualizations of our key findings, please visit our live project report:
 
-Go to Live Demo
+[Live Demo](https://kangmin22.github.io/PID-Transformer-PROJECT/)
 
 # Overview
 
