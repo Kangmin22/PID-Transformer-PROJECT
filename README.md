@@ -1,116 +1,111 @@
 PID-Transformer: A Control-Theoretic Approach for Stabilizing Large-Scale Neural Networks
+This repository contains the official implementation for PID-Transformer, a novel architecture that embeds control-theoretic principles directly into a Transformer to achieve robust, stable, and interpretable training dynamics.
 
-Control-Theoretic Stabilization for Large-Scale Transformers
+🚀 Interactive Web Report
 
-> A novel Transformer architecture with embedded PID control logic for robust and interpretable representation dynamics.  
-> Includes Group-wise PID, AdaptiveDim switching, and Gating-based trajectory feedback.
+For a comprehensive overview and interactive visualizations of our key findings, please visit our live project report:
 
----
+Go to Live Demo
 
-Installation
+# Overview
 
-You can install the package in the following ways:
+Training large-scale language models is often hindered by gradient instability and oscillatory behavior. This work introduces a new paradigm for model stabilization by integrating a learnable, geometric PID (Proportional-Integral-Derivative) controller directly into the Transformer's internal architecture. Our final model, AdaptiveDim+Gating PID-Transformer, actively manipulates the hidden state dynamics to ensure a more stable and efficient learning process.
 
-PyPI
+# Key Features
 
-pip install pidtransformer
+- Group-wise PID Control: Applies specialized PID control to independent subgroups of the hidden state dimensions for more granular feedback.
 
- From wheel or tar.gz
+- Adaptive Dimension: Dynamically adjusts the dimensionality of the control space, using a larger dimension for initial stabilization and a smaller one for fine-tuning.
 
-pip install pidtransformer-1.0.0-py3-none-any.whl
-or
-pip install pidtransformer-1.0.0.tar.gz
+- Gating Mechanism: Employs a learnable, softmax-based gate to dynamically allocate the influence of different control groups based on the current context.
 
----
+- End-to-End Analysis: Validated with comprehensive experiments, including Gradient Spectrum Analysis (GSA) and PCA-based trajectory visualization.
 
-Quick Start
+# Installation
 
-1. Clone and prepare the environment
+To set up the project locally for development and experimentation, please follow these steps.
 
-- git clone https://github.com/your-org/pid-transformer.git
+Clone the Repository:
 
-- cd pid-transformer
+git clone https://github.com/Kangmin22/PID-Transformer-PROJECT.git
+cd PID-Transformer-PROJECT
+Set Up Virtual Environment:
 
-- python3 -m venv venv
 
-- source venv/bin/activate
+# Create a new virtual environment
 
-- pip install -r requirements.txt
+python -m venv venv
 
----
+# Activate the environment
+# On Windows
 
-2. Run a training experiment
+.\venv\Scripts\activate
 
-python experiments/train_baseline.py \
-    --experiment_name "PID_Optimal_Filtered" \
-    --kp 0.002852 --ki 0.001240 --kd 0.012805 \
-    --d_filter 3
+# On macOS/Linux
 
----
+source venv/bin/activate
 
-3. Visualize hidden state trajectories
+Install Dependencies:
 
-python experiments/plot_trajectory.py \
-    PID_Off_history.json PID_Optimal_Filtered_history.json \
-    --output_file trajectory_comparison.png
+Install all required libraries from the requirements.txt file.
 
----
+pip install -r requirements.txt
 
- Core Components
+Install the Package in Editable Mode:
 
-| Module                   | Description                                                                         |
-| ------------------------ | ----------------------------------------------------------------------------------- |
-| `GeometricPIDController` | A vector-based controller applying P/I/D logic to model-internal error signals.     |
-| `PIDLayer`               | Combines FFN + projection to control space + PID feedback loop.                     |
-| `AdaptiveDim`            | Dynamically switches dimensionality (e.g. 256→128) to optimize stability over time. |
-| `Group-wise PID`         | PID applied across subgroups of hidden dimensions.                                  |
-| `Trajectory Tracker`     | Captures hidden state evolution to visualize smoothness/curvature via PCA.          |
+This command registers the pidtransformer package with your environment, allowing you to import it while making your local changes immediately available.
 
----
+pip install -e .
 
- Interactive Visualization
+# Usage
 
- Launch in Browser
+All experiments are run through the central main.py script. You can customize a run by providing command-line arguments.
 
-[Go to Live Demo](https://kangmin22.github.io/PID-Transformer-PROJECT/)
+Running a Training Experiment
+To run an experiment, you must provide an --experiment_name. Other flags activate specific features of the model.
 
-You’ll see:
+Example: Running the final "Hero Model" (AdaptiveDim+Gating)
 
-PCA latent space trajectories 
+python main.py --experiment_name "MyHeroModel_Run" \
+               --num_steps 1000 \
+               --log_freq 20 \
+               --use_group_pid \
+               --use_adaptive_dim \
+               --use_gating \
+               --ortho_weight 0.01 \
+               --dimension_switch_step 500
 
-Loss/PID Norm curves 
+Experiment artifacts, including history logs (.json) and model checkpoints (.pth), will be saved to the results/ and checkpoints/ directories, respectively.
 
-GSA bar chart 
+# Visualizing Results
 
-Diagrammatic explanation of PIDLayer and controller design 
+Use the provided plotting scripts to analyze the output from your experiments.
 
----
+- Generate the GSA Dashboard:
 
-Reproducible Experiments
+python experiments/plot_advanced_gsa.py results/GSA_Baseline_NoControl_history.json results/GSA_Hero_Model_history.json
 
-Baseline Model (no control)
+- Generate a 2D PCA Trajectory Plot:
 
-python experiments/train_baseline.py --experiment_name "PID_Off" --kp 0 --ki 0 --kd 0
+python experiments/plot_trajectory.py results/GSA_Baseline_NoControl_history.json results/GSA_Hero_Model_history.json --
 
-Full Control Model
+output_file trajectory_2d.png
 
-python experiments/train_baseline.py --experiment_name "AdaptiveDim" \
-    --kp 0.1 --ki 0.01 --kd 0.05 --use_adaptive_dim --use_group_pid --ortho_weight 0.01
+- Generate a 3D PCA Trajectory Plot:
 
-Endurance-scale
+python experiments/plot_trajectory.py results/GSA_Baseline_NoControl_history.json results/GSA_Hero_Model_history.json --
 
-python experiments/train_baseline.py --experiment_name "Endurance_AdaptiveDim" \
-    --num_steps 5000 --log_freq 50 --use_adaptive_dim --use_group_pid
+output_file trajectory_3d.png --three_d
 
----
-
-Citation
+# Citation
 
 If you use this work in your research, please cite:
 
-@article{pidtransformer2025,
-  title={AdaptiveDim+Gating PID-Transformer: A Control-Theoretic Approach for Stabilizing Large-Scale Neural Networks},
-  author={KANG JA IL},
-  year={2025}
+@misc{pid-transformer2025,
+  author       = {KANG JA IL},
+  title        = {PID-Transformer: A Control-Theoretic Approach for Stabilizing Large-Scale Neural Networks},
+  year         = {2025},
+  publisher    = {GitHub},
+  journal      = {GitHub repository},
+  howpublished = {\url{https://github.com/Kangmin22/PID-Transformer-PROJECT}}
 }
-
