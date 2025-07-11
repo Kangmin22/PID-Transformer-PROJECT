@@ -9,7 +9,7 @@ For a comprehensive overview and interactive visualizations of our key findings,
 
 # Overview
 
-Training large-scale language models is often hindered by gradient instability and oscillatory behavior. This work introduces a new paradigm for model stabilization by integrating a learnable, geometric PID (Proportional-Integral-Derivative) controller directly into the Transformer's internal architecture. Our final model, AdaptiveDim+Gating PID-Transformer, actively manipulates the hidden state dynamics to ensure a more stable and efficient learning process.
+- Training large-scale language models is often hindered by gradient instability and oscillatory behavior. This work introduces a new paradigm for model stabilization by integrating a learnable, geometric PID (Proportional-Integral-Derivative) controller directly into the Transformer's internal architecture. Our final model, AdaptiveDim+Gating PID-Transformer, actively manipulates the hidden state dynamics to ensure a more stable and efficient learning process.
 
 # Key Features
 
@@ -30,7 +30,6 @@ Clone the Repository:
 git clone https://github.com/Kangmin22/PID-Transformer-PROJECT.git
 cd PID-Transformer-PROJECT
 Set Up Virtual Environment:
-
 
 # Create a new virtual environment
 
@@ -107,5 +106,5 @@ If you use this work in your research, please cite:
   year         = {2025},
   publisher    = {GitHub},
   journal      = {GitHub repository},
-  howpublished = {\url{https://github.com/Kangmin22/PID-Transformer-PROJECT}}
+  howpublished = {url{https://github.com/Kangmin22/PID-Transformer-PROJECT}}
 }
